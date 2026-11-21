@@ -1,7 +1,7 @@
 FROM wordpress:php8.1-apache
 
 RUN apt-get update; \
-    apt-get install -y openssh-server
+    apt-get install -y openssh-server;
 
 # RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 # # Enable .htaccess files & mod_rewrite
