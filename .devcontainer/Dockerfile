@@ -1,4 +1,4 @@
-FROM wordpress:8.1-apache
+FROM wordpress:php8.1-apache
 
 RUN apt-get update; \
     apt-get install -y openssh-server;
@@ -66,10 +66,10 @@ WORKDIR /tmp
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 		&& php composer-setup.php --quiet --install-dir=/usr/local/bin --filename=composer
 #add www-data to root group so it can write to /var/www/html
-RUN usermod -a -G root www-data;
+RUN usermod -aG root www-data;
 
 WORKDIR /var/www/html
-# USER www-data
+USER www-data
 
 # #Download WP
 # RUN wp core download
@@ -78,7 +78,7 @@ WORKDIR /var/www/html
 RUN mkdir -p /var/www/html/wp-content/plugins/plugin-dev; \
 	mkdir -p /var/www/html/wp-content/themes/theme-dev;
 
-# USER root
+USER root
 
 
 # RUN chown -R www-data:www-data /var/www/html/
@@ -97,4 +97,4 @@ RUN chmod 400 /root/.ssh
 COPY ssh/id_ed25519.pub /root/.ssh/authorized_keys
 RUN chmod 400 /root/.ssh/authorized_keys
 
-CMD [ "sh", "-c", "service ssh start && apache2ctl -D FOREGROUND" ]
+#CMD [ "sh", "-c", "service ssh start && apache2ctl -D FOREGROUND" ]
