@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Test Plugin
+Plugin Name: Test Plugin 2
 Description: DevContainer Sample Plugin
 Version: 1.0
 Author: You
