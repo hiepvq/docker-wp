@@ -4,5 +4,5 @@ Plugin Name: Test Plugin
 Description: DevContainer Sample Plugin
 Version: 1.0
 Author: You
-License: GPLv2 or later2222
+License: GPLv2 or later22223333
 */
