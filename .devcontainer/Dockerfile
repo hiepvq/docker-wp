@@ -68,7 +68,6 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 #add www-data to root group so it can write to /var/www/html
 RUN usermod -a -G root www-data;
 
-
 WORKDIR /var/www/html
 # USER www-data
 
