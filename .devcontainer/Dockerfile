@@ -1,4 +1,4 @@
-FROM wordpress:php8.1-apache
+FROM wordpress:8.1-apache
 
 RUN apt-get update; \
     apt-get install -y openssh-server;
@@ -66,6 +66,9 @@ WORKDIR /tmp
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 		&& php composer-setup.php --quiet --install-dir=/usr/local/bin --filename=composer
 
+#add www-data to root group so it can write to /var/www/html
+RUN usermod -a -G root www-data;
+
 WORKDIR /var/www/html
 # USER www-data
 
@@ -77,6 +80,8 @@ RUN mkdir -p /var/www/html/wp-content/plugins/plugin-dev; \
 	mkdir -p /var/www/html/wp-content/themes/theme-dev;
 
 # USER root
+
+
 # RUN chown -R www-data:www-data /var/www/html/
 # RUN chmod g+w -R /var/www/html/
 # RUN find /var/www/html/ -type d -exec chmod g+s {} \;
