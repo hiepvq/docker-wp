@@ -91,10 +91,4 @@ USER root
 #RUN echo "root:root" | chpasswd
 #RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
 
-RUN mkdir -p /root/.ssh
-RUN chmod 400 /root/.ssh
-
-COPY ssh/id_ed25519.pub /root/.ssh/authorized_keys
-RUN chmod 400 /root/.ssh/authorized_keys
-
 #CMD [ "sh", "-c", "service ssh start && apache2ctl -D FOREGROUND" ]
