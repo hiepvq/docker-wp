@@ -1,8 +1,5 @@
 FROM wordpress:php8.1-apache
 
-RUN apt-get update; \
-    apt-get install -y openssh-server;
-
 # RUN mv "$PHP_INI_DIR/php.ini-development" "$PHP_INI_DIR/php.ini"
 # # Enable .htaccess files & mod_rewrite
 # RUN sed -i '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride all/' /etc/apache2/apache2.conf
@@ -65,8 +62,6 @@ RUN curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli
 WORKDIR /tmp
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 		&& php composer-setup.php --quiet --install-dir=/usr/local/bin --filename=composer
-#add www-data to root group so it can write to /var/www/html
-RUN usermod -aG root www-data;
 
 WORKDIR /var/www/html
 USER www-data
@@ -85,10 +80,3 @@ USER root
 # RUN chmod g+w -R /var/www/html/
 # RUN find /var/www/html/ -type d -exec chmod g+s {} \;
 
-# SSH setup
-
-# cài đặt mật khẩu root là "root" để login SSH bằng root
-#RUN echo "root:root" | chpasswd
-#RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
-
-#CMD [ "sh", "-c", "service ssh start && apache2ctl -D FOREGROUND" ]
